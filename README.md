@@ -30,23 +30,11 @@ This repository contains a simplified scaffold for the RoomieMatch platform, inc
    dotnet build
    ```
 
-3. Ensure the PostgreSQL connection string is configured. By default the API looks for the `ConnectionStrings:Postgres` setting in `appsettings.json`. To create the database and provide the connection string:
+3. Ensure the PostgreSQL connection string is configured. By default the API looks for the `ConnectionStrings:Postgres` setting in `appsettings.json`. You can override it with an environment variable:
 
-   1. Start a local PostgreSQL server (for example with `postgres` running as a service or via Docker: `docker run --name roomiematch-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:14`).
-   2. Create the database (skip if it already exists):
-
-      ```bash
-      psql -h localhost -U postgres -c "CREATE DATABASE roomiematch;"
-      ```
-
-      When prompted, enter the password you configured (e.g., `postgres`).
-   3. Export the connection string so the API can connect:
-
-      ```bash
-      export ConnectionStrings__Postgres="Host=localhost;Port=5432;Database=roomiematch;Username=postgres;Password=postgres"
-      ```
-
-      On Windows PowerShell use ``$Env:ConnectionStrings__Postgres = "Host=localhost;Port=5432;Database=roomiematch;Username=postgres;Password=postgres"``.
+   ```bash
+   export ConnectionStrings__Postgres="Host=localhost;Port=5432;Database=roomiematch;Username=postgres;Password=postgres"
+   ```
 
 4. Run database migrations and start the API:
 
