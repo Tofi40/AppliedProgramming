@@ -23,6 +23,16 @@ npm start
 
 The dev server runs on `http://localhost:4200` and proxies API calls directly to the backend using absolute URLs. Update `src/environments/environment*.ts` if you host the API elsewhere.
 
+### Static preview for stakeholders
+
+Need to show the interface without running the Angular dev server? Launch the lightweight HTML mockup located in `preview/`:
+
+```bash
+npm run preview
+```
+
+Then open `http://localhost:4173` in your browser. The static RoomieMatch landing page highlights the hero, featured rooms, and request workflows for demos.
+
 ## Testing
 
 Run unit tests with:
