@@ -1,0 +1,69 @@
+<div class="container dashboard" *ngIf="user$ | async as profile">
+  <section class="card welcome">
+    <div>
+      <p class="greeting">Welcome back,</p>
+      <h1>{{ profile.displayName }}</h1>
+      <p class="role">Logged in as {{ profile.role }}</p>
+    </div>
+    <div class="cta" *ngIf="isOwner()">
+      <p>Owners can publish new rooms from the backend or API. Use the requests tab to review seeker interest.</p>
+      <a routerLink="/requests" class="button button--ghost">Review requests</a>
+    </div>
+  </section>
+
+  <section class="grid columns">
+    <article class="card">
+      <header>
+        <h2>Your rooms</h2>
+        <button class="button button--ghost" type="button" (click)="refreshRooms()">
+          <span *ngIf="loadingRooms(); else refreshLabel">Refreshing…</span>
+          <ng-template #refreshLabel>Refresh via Rooms tab</ng-template>
+        </button>
+      </header>
+      <ng-container *ngIf="!loadingRooms(); else roomsLoading">
+        <ul class="list" *ngIf="rooms().length; else noRooms">
+          <li *ngFor="let room of rooms()">
+            <div>
+              <strong>{{ room.title }}</strong>
+              <span>{{ room.city }}, {{ room.country }}</span>
+            </div>
+            <div class="meta">
+              <span>{{ room.pricePerMonthCents / 100 | currency:'USD' }}/mo</span>
+              <span [class.published]="room.isPublished">{{ room.isPublished ? 'Published' : 'Draft' }}</span>
+            </div>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #roomsLoading>
+        <p class="loading">Loading rooms…</p>
+      </ng-template>
+      <ng-template #noRooms>
+        <p class="empty">No rooms yet. Publish from the backend seeding or API.</p>
+      </ng-template>
+    </article>
+
+    <article class="card">
+      <header>
+        <h2>Latest requests</h2>
+        <a routerLink="/requests">View all</a>
+      </header>
+      <ng-container *ngIf="!loadingRequests(); else requestsLoading">
+        <ul class="list" *ngIf="requests().length; else noRequests">
+          <li *ngFor="let request of requests() | slice:0:5">
+            <div>
+              <strong>{{ request.status }}</strong>
+              <span>Request #{{ request.id | slice:0:8 }}</span>
+            </div>
+            <time>{{ request.createdAt | date:'mediumDate' }}</time>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #requestsLoading>
+        <p class="loading">Loading requests…</p>
+      </ng-template>
+      <ng-template #noRequests>
+        <p class="empty">No requests yet. Encourage seekers to book your rooms.</p>
+      </ng-template>
+    </article>
+  </section>
+</div>

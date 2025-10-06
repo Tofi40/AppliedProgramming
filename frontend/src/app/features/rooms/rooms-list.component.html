@@ -1,0 +1,39 @@
+<section class="container">
+  <div class="card filter">
+    <h1>Available rooms</h1>
+    <div class="filter__controls">
+      <label>
+        <span>City or country</span>
+        <input type="text" placeholder="e.g. London" [value]="cityFilter()" (input)="cityFilter.set($any($event.target).value)" />
+      </label>
+      <label class="toggle">
+        <input type="checkbox" [checked]="onlyPublished()" (change)="onlyPublished.set($any($event.target).checked)" />
+        <span>Published only</span>
+      </label>
+      <button class="button button--ghost" type="button" (click)="loadRooms()">Refresh</button>
+    </div>
+  </div>
+
+  <div class="grid rooms" *ngIf="!loading(); else loadingState">
+    <article class="room card" *ngFor="let room of filteredRooms()">
+      <header>
+        <div>
+          <h2>{{ room.title }}</h2>
+          <p class="location">{{ room.city }}, {{ room.country }}</p>
+        </div>
+        <strong class="price">{{ room.pricePerMonthCents / 100 | currency:'USD' }}/mo</strong>
+      </header>
+      <p class="description">{{ room.description }}</p>
+      <div class="meta">
+        <span class="badge" [class.badge--green]="room.isPublished">{{ room.isPublished ? 'Published' : 'Draft' }}</span>
+        <span class="badge" *ngIf="room.billsIncluded">Bills included</span>
+        <span class="badge" *ngIf="room.compatibilityScore as score">Match: {{ score | number:'1.0-0' }}%</span>
+      </div>
+      <a class="button" [routerLink]="['/rooms', room.id]">View details</a>
+    </article>
+  </div>
+
+  <ng-template #loadingState>
+    <p class="loading">Loading rooms…</p>
+  </ng-template>
+</section>

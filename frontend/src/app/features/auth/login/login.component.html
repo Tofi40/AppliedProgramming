@@ -1,0 +1,23 @@
+<section class="auth">
+  <div class="card auth__card">
+    <h1>Sign in</h1>
+    <p>Access your RoomieMatch dashboard and start collaborating.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••" />
+      </div>
+      <button class="button" type="submit" [disabled]="loading()">{{ loading() ? 'Signing in…' : 'Sign in' }}</button>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+    </form>
+
+    <p class="switch">
+      New to RoomieMatch? <a routerLink="/register">Create an account</a>
+    </p>
+  </div>
+</section>
