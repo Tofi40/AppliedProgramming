@@ -1,0 +1,89 @@
+<section class="swipe">
+  <header class="swipe__header">
+    <h1>{{ headerTitle() }}</h1>
+    <p>{{ headerSubtitle() }}</p>
+  </header>
+
+  <div class="swipe__deck" *ngIf="currentCard(); else emptyState">
+    <article
+      class="swipe-card"
+      [ngClass]="cardClasses()"
+      [style.transform]="cardTransform()"
+      (pointerdown)="startDrag($event)"
+      (pointermove)="drag($event)"
+      (pointerup)="endDrag($event)"
+      (pointercancel)="endDrag($event)"
+      (pointerleave)="endDrag($event)"
+    >
+      <div class="swipe-card__image" [style.background-image]="gradientFor(currentCard()?.imageSeed)">
+        <span class="swipe-card__badge" *ngIf="currentCard()?.matchPercent as percent">{{ percent }}% match</span>
+        <span class="swipe-card__initial">{{ currentCard()?.imageLabel || '🏠' }}</span>
+        <div class="swipe-card__overlay" *ngIf="previewDecision() as decision">
+          <span [class.like]="decision === 'right'" [class.nope]="decision === 'left'">
+            {{ decision === 'right' ? 'LIKE' : 'NOPE' }}
+          </span>
+        </div>
+      </div>
+      <div class="swipe-card__body">
+        <div class="swipe-card__headline">
+          <h2>{{ currentCard()?.title }}</h2>
+          <span class="swipe-card__price" *ngIf="currentCard()?.pricePerMonthCents as price">
+            {{ price / 100 | currency:'USD':'symbol':'1.0-0' }}/mo
+          </span>
+        </div>
+        <p class="swipe-card__subtitle" *ngIf="currentCard()?.subtitle">{{ currentCard()?.subtitle }}</p>
+        <p class="swipe-card__description" *ngIf="currentCard()?.description">{{ currentCard()?.description }}</p>
+        <ul class="swipe-card__chips" *ngIf="currentCard()?.chips?.length">
+          <li *ngFor="let chip of currentCard()?.chips">{{ chip }}</li>
+        </ul>
+        <div class="swipe-card__rationale" *ngIf="currentCard()?.rationale?.length">
+          <h3>Why this match</h3>
+          <ul>
+            <li *ngFor="let reason of currentCard()?.rationale">{{ reason }}</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="swipe-card swipe-card--next" *ngIf="nextCard() as upcoming">
+      <div class="swipe-card__image" [style.background-image]="gradientFor(upcoming.imageSeed)">
+        <span class="swipe-card__initial">{{ upcoming.imageLabel || '🏠' }}</span>
+      </div>
+      <div class="swipe-card__body">
+        <h2>{{ upcoming.title }}</h2>
+        <p class="swipe-card__subtitle" *ngIf="upcoming.subtitle">{{ upcoming.subtitle }}</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="swipe__actions" *ngIf="currentCard()">
+    <button type="button" class="swipe__button swipe__button--nope" (click)="skip()" aria-label="Skip">
+      ✕
+    </button>
+    <button type="button" class="swipe__button swipe__button--info" (click)="openDetails()" aria-label="See more">
+      ℹ️
+    </button>
+    <button type="button" class="swipe__button swipe__button--like" (click)="like()" aria-label="Like">
+      ❤
+    </button>
+  </div>
+
+  <p class="swipe__feedback" *ngIf="feedback()">{{ feedback() }}</p>
+
+  <ng-template #emptyState>
+    <ng-container *ngIf="!loading(); else loadingState">
+      <div class="empty">
+        <h2>No more matches right now</h2>
+        <p>You're all caught up! Pull to refresh or check back a little later.</p>
+        <button type="button" class="button" (click)="reload()">Refresh matches</button>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #loadingState>
+    <div class="loading">
+      <span class="loading__spinner"></span>
+      <p>Finding the best roommates for you…</p>
+    </div>
+  </ng-template>
+</section>

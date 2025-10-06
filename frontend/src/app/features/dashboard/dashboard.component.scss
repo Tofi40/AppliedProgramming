@@ -1,0 +1,97 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  .greeting {
+    color: #475467;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+
+  .role {
+    margin-top: 0.25rem;
+    color: #667085;
+  }
+
+  .cta {
+    max-width: 360px;
+    color: #475467;
+  }
+}
+
+.columns {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  a {
+    color: #1d4ed8;
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    span,
+    time {
+      color: #667085;
+      font-size: 0.9rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+
+      span.published {
+        color: #15803d;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.loading,
+.empty {
+  color: #475467;
+}
+
+@media (max-width: 720px) {
+  .welcome {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

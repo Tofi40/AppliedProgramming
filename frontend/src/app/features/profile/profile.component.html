@@ -1,0 +1,51 @@
+<section class="container profile" *ngIf="profile() as current; else loading">
+  <article class="card">
+    <header>
+      <div>
+        <h1>Your profile</h1>
+        <p>Keep your information up to date so matches remain relevant.</p>
+      </div>
+      <p class="status" [class.complete]="current.onboardingComplete">
+        {{ current.onboardingComplete ? 'Onboarding complete' : 'Onboarding pending' }}
+      </p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="save()" class="form">
+      <div class="grid two-columns">
+        <div class="form-field">
+          <label for="displayName">Display name</label>
+          <input id="displayName" type="text" formControlName="displayName" required />
+        </div>
+        <div class="form-field">
+          <label for="bio">Bio</label>
+          <textarea id="bio" rows="3" formControlName="bio" placeholder="Share a short introduction"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="city">City</label>
+          <input id="city" type="text" formControlName="city" />
+        </div>
+        <div class="form-field">
+          <label for="country">Country</label>
+          <input id="country" type="text" formControlName="country" />
+        </div>
+        <div class="form-field">
+          <label for="interests">Interests</label>
+          <input id="interests" type="text" formControlName="interests" placeholder="Comma separated" />
+        </div>
+        <div class="form-field">
+          <label for="habits">Habits</label>
+          <input id="habits" type="text" formControlName="habits" placeholder="Comma separated" />
+        </div>
+        <div class="form-field">
+          <label for="personality">Personality</label>
+          <input id="personality" type="text" formControlName="personality" placeholder="Comma separated" />
+        </div>
+      </div>
+      <button class="button" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : 'Save changes' }}</button>
+      <p class="message" *ngIf="message()">{{ message() }}</p>
+    </form>
+  </article>
+</section>
+<ng-template #loading>
+  <p class="loading">Loading profile…</p>
+</ng-template>

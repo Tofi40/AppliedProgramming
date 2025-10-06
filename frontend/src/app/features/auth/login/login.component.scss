@@ -1,0 +1,38 @@
+.auth {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.auth__card {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  p {
+    color: #667085;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .error {
+    color: #dc2626;
+    font-weight: 600;
+  }
+
+  .switch {
+    color: #475467;
+
+    a {
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+  }
+}

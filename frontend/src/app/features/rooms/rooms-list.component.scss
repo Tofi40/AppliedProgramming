@@ -1,0 +1,356 @@
+:host {
+  display: block;
+}
+
+.swipe {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 0 3rem;
+  min-height: min(100vh - 9rem, 860px);
+}
+
+.swipe__header {
+  text-align: center;
+  padding: 0 1.5rem;
+
+  h1 {
+    font-size: clamp(1.9rem, 6vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  p {
+    color: #475467;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 34rem;
+    margin: 0 auto;
+  }
+}
+
+.swipe__deck {
+  position: relative;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 0 1.25rem;
+  min-height: 420px;
+}
+
+.swipe-card {
+  position: relative;
+  width: min(100%, 480px);
+  background: #ffffff;
+  border-radius: 1.75rem;
+  box-shadow: 0 30px 70px -32px rgba(15, 23, 42, 0.45);
+  overflow: hidden;
+  touch-action: none;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transform-origin: center bottom;
+
+  &__image {
+    position: relative;
+    padding-top: 68%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(15, 23, 42, 0.8);
+    color: #fff;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  &__initial {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.85);
+    color: #101828;
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.75);
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.9rem;
+      border: 3px solid currentColor;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      transform: rotate(-10deg);
+
+      &.like {
+        color: #22c55e;
+      }
+
+      &.nope {
+        color: #f97316;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.5rem 1.75rem 1.75rem;
+  }
+
+  &__headline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    h2 {
+      font-size: 1.45rem;
+      margin: 0;
+      color: #101828;
+    }
+  }
+
+  &__price {
+    background: rgba(29, 78, 216, 0.12);
+    color: #1d4ed8;
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    color: #475467;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  &__description {
+    margin: 0;
+    color: #344054;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  &__chips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    li {
+      background: #f4f4ff;
+      color: #4f46e5;
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+  }
+
+  &__rationale {
+    h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: #475467;
+      font-size: 0.88rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+  }
+}
+
+.swipe-card--next {
+  pointer-events: none;
+  position: absolute;
+  inset: auto;
+  transform: translateY(28px) scale(0.94);
+  opacity: 0.35;
+  filter: blur(0.2rem);
+}
+
+.swipe-card--transition {
+  transition: transform 0.28s ease-out;
+}
+
+.swipe-card--dragging {
+  cursor: grabbing;
+  box-shadow: 0 40px 80px -32px rgba(15, 23, 42, 0.55);
+}
+
+.swipe-card--like .swipe-card__image::after,
+.swipe-card--nope .swipe-card__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: background 0.2s ease;
+}
+
+.swipe-card--like .swipe-card__image::after {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.35), rgba(20, 184, 166, 0.2));
+}
+
+.swipe-card--nope .swipe-card__image::after {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.35), rgba(239, 68, 68, 0.25));
+}
+
+.swipe__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.swipe__button {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 16px 40px -22px rgba(15, 23, 42, 0.6);
+  font-size: 1.65rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 48px -22px rgba(15, 23, 42, 0.66);
+  }
+
+  &--nope {
+    color: #f97316;
+  }
+
+  &--like {
+    color: #ef4444;
+  }
+
+  &--info {
+    font-size: 1.4rem;
+    color: #1d4ed8;
+  }
+}
+
+.swipe__feedback {
+  text-align: center;
+  color: #1d4ed8;
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-height: 1.2rem;
+}
+
+.empty {
+  text-align: center;
+  display: grid;
+  gap: 0.6rem;
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px -34px rgba(15, 23, 42, 0.4);
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    color: #475467;
+    margin: 0;
+  }
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  color: #475467;
+
+  &__spinner {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 4px solid rgba(37, 99, 235, 0.2);
+    border-top-color: #2563eb;
+    animation: spin 0.9s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .swipe {
+    padding: 1rem 0 2.5rem;
+  }
+
+  .swipe__deck {
+    min-height: 360px;
+    padding: 0 0.5rem;
+  }
+
+  .swipe-card {
+    width: calc(100% - 1.25rem);
+    border-radius: 1.5rem;
+
+    &__body {
+      padding: 1.35rem 1.25rem 1.5rem;
+    }
+
+    &__headline h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .swipe__actions {
+    gap: 1rem;
+  }
+
+  .swipe__button {
+    width: 56px;
+    height: 56px;
+    font-size: 1.45rem;
+  }
+}
