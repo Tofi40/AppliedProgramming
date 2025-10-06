@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>RoomieMatch Frontend Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #f9fbff 0%, #ffffff 60%);
+      color: #101828;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid #e4e7ec;
+    }
+    header nav a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: #475467;
+      font-weight: 500;
+    }
+    header nav a.active {
+      color: #1d4ed8;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      background: #1d4ed8;
+      color: #fff;
+      text-decoration: none;
+    }
+    .button--ghost {
+      background: transparent;
+      color: #1d4ed8;
+      border: 1px solid rgba(29, 78, 216, 0.25);
+    }
+    main {
+      padding: 2.5rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid #e4e7ec;
+      box-shadow: 0 10px 35px -30px rgba(15, 23, 42, 0.35);
+    }
+    .hero {
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      color: #475467;
+      line-height: 1.6;
+    }
+    .hero .actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .room header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    .room .price {
+      font-weight: 700;
+      color: #1d4ed8;
+    }
+    .room p {
+      color: #475467;
+    }
+    footer {
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid #e4e7ec;
+      background: #f8fafc;
+      color: #667085;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>🏠 RoomieMatch</strong>
+    </div>
+    <nav>
+      <a class="active">Rooms</a>
+      <a>Dashboard</a>
+      <a>Requests</a>
+      <a>Profile</a>
+    </nav>
+    <div>
+      <a class="button button--ghost">Login</a>
+      <a class="button">Join now</a>
+    </div>
+  </header>
+  <main>
+    <section class="card hero">
+      <h1>Find the right roomie faster</h1>
+      <p>RoomieMatch pairs seekers and owners through compatibility scoring, verified requests, and live messaging.</p>
+      <div class="actions">
+        <a class="button">Browse rooms</a>
+        <a class="button button--ghost">Create free account</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Featured rooms</h2>
+      <div class="grid">
+        <article class="card room">
+          <header>
+            <h3>Sunny double room</h3>
+            <span class="price">$1,100/mo</span>
+          </header>
+          <p>Bright double room with private balcony in a shared apartment near downtown.</p>
+        </article>
+        <article class="card room">
+          <header>
+            <h3>Creative loft</h3>
+            <span class="price">$980/mo</span>
+          </header>
+          <p>Loft-style bedroom with co-working nook, ideal for remote workers.</p>
+        </article>
+        <article class="card room">
+          <header>
+            <h3>City view suite</h3>
+            <span class="price">$1,450/mo</span>
+          </header>
+          <p>Top-floor suite with skyline views and all bills included.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer>
+    RoomieMatch demo frontend preview.
+  </footer>
+</body>
+</html>

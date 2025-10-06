@@ -1,0 +1,112 @@
+.hero {
+  padding: 2rem 0 1rem;
+
+  &__content {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(145deg, rgba(29, 78, 216, 0.06), rgba(255, 255, 255, 0.95));
+    border: 1px solid rgba(29, 78, 216, 0.12);
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.7rem);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      max-width: 640px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+.featured {
+  padding: 1rem 0 3rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    a {
+      color: #1d4ed8;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+.room {
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid #e4e7ec;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 24px 36px -40px rgba(15, 23, 42, 0.45);
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .price {
+      font-weight: 700;
+      color: #1d4ed8;
+    }
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 1rem;
+    margin: 0;
+
+    dt {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #98a2b3;
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 600;
+      color: #1d2939;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    font-weight: 600;
+    color: #1d4ed8;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    &__content {
+      padding: 2rem;
+    }
+  }
+}
