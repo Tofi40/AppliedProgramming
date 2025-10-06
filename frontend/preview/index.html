@@ -8,10 +8,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      color-scheme: light;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, #f9fbff 0%, #ffffff 60%);
+      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 60%);
       color: #101828;
     }
     header {
@@ -19,62 +25,100 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       border-bottom: 1px solid #e4e7ec;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      z-index: 2;
+    }
+    header nav {
+      display: flex;
+      gap: 1rem;
     }
     header nav a {
-      margin-right: 1rem;
       text-decoration: none;
       color: #475467;
       font-weight: 500;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
     }
     header nav a.active {
       color: #1d4ed8;
+      background: rgba(29, 78, 216, 0.08);
     }
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 0.55rem 1.2rem;
-      border-radius: 0.5rem;
+      border-radius: 0.75rem;
       font-weight: 600;
       background: #1d4ed8;
       color: #fff;
       text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px -15px rgba(29, 78, 216, 0.6);
     }
     .button--ghost {
       background: transparent;
       color: #1d4ed8;
-      border: 1px solid rgba(29, 78, 216, 0.25);
+      border-color: rgba(29, 78, 216, 0.35);
     }
     main {
-      padding: 2.5rem;
+      padding: 3rem 2.5rem 4rem;
+      display: grid;
+      gap: 2.5rem;
+    }
+    section > h2 {
+      margin-bottom: 1rem;
     }
     .card {
       background: #fff;
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: 1.75rem;
       border: 1px solid #e4e7ec;
-      box-shadow: 0 10px 35px -30px rgba(15, 23, 42, 0.35);
+      box-shadow: 0 20px 45px -35px rgba(15, 23, 42, 0.45);
     }
     .hero {
-      max-width: 680px;
-      margin: 0 auto 2rem;
+      display: grid;
+      gap: 1.5rem;
       text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
     }
     .hero h1 {
-      font-size: 2.4rem;
-      margin-bottom: 0.5rem;
+      font-size: clamp(2.4rem, 3vw + 1.8rem, 3rem);
+      margin: 0;
     }
     .hero p {
       color: #475467;
       line-height: 1.6;
+      margin: 0 auto;
+      max-width: 540px;
     }
     .hero .actions {
       display: flex;
       justify-content: center;
       gap: 1rem;
-      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      color: #1d2939;
+    }
+    .hero-stats span {
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+      color: #1d4ed8;
     }
     .grid {
       display: grid;
@@ -88,6 +132,7 @@
       padding: 0;
       border: none;
       background: none;
+      margin-bottom: 0.5rem;
     }
     .room .price {
       font-weight: 700;
@@ -95,6 +140,86 @@
     }
     .room p {
       color: #475467;
+    }
+    .room .meta {
+      display: flex;
+      gap: 0.75rem;
+      color: #667085;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .step {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .step strong {
+      font-size: 1.05rem;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      gap: 1.75rem;
+    }
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .timeline {
+      display: grid;
+      gap: 1.25rem;
+    }
+    .timeline-entry {
+      display: grid;
+      gap: 0.25rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .timeline-entry::before {
+      content: '';
+      position: absolute;
+      left: 0.45rem;
+      top: 0.4rem;
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: #1d4ed8;
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+    .timeline-entry:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 0.75rem;
+      top: 1.4rem;
+      width: 1px;
+      height: calc(100% - 1.4rem);
+      background: #e4e7ec;
+    }
+    .timeline-entry span {
+      font-size: 0.85rem;
+      color: #667085;
+    }
+    .side-card {
+      display: grid;
+      gap: 1rem;
+    }
+    .match-score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1rem;
+      border-radius: 0.85rem;
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(29, 78, 216, 0.02));
+    }
+    .match-score span {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1d4ed8;
     }
     footer {
       padding: 1.5rem 2.5rem;
@@ -129,6 +254,20 @@
         <a class="button">Browse rooms</a>
         <a class="button button--ghost">Create free account</a>
       </div>
+      <div class="hero-stats">
+        <div>
+          <span>2,400+</span>
+          matches made last month
+        </div>
+        <div>
+          <span>98%</span>
+          response rate in 24h
+        </div>
+        <div>
+          <span>4.8★</span>
+          average room rating
+        </div>
+      </div>
     </section>
 
     <section>
@@ -140,6 +279,10 @@
             <span class="price">$1,100/mo</span>
           </header>
           <p>Bright double room with private balcony in a shared apartment near downtown.</p>
+          <div class="meta">
+            <span>⭐ 4.9 rating</span>
+            <span>🚌 Near transit</span>
+          </div>
         </article>
         <article class="card room">
           <header>
@@ -147,6 +290,10 @@
             <span class="price">$980/mo</span>
           </header>
           <p>Loft-style bedroom with co-working nook, ideal for remote workers.</p>
+          <div class="meta">
+            <span>🛋 Furnished</span>
+            <span>🌿 Pet friendly</span>
+          </div>
         </article>
         <article class="card room">
           <header>
@@ -154,8 +301,86 @@
             <span class="price">$1,450/mo</span>
           </header>
           <p>Top-floor suite with skyline views and all bills included.</p>
+          <div class="meta">
+            <span>🚇 5 min to metro</span>
+            <span>🧺 In-unit laundry</span>
+          </div>
+        </article>
+        <article class="card room">
+          <header>
+            <h3>Garden cottage</h3>
+            <span class="price">$880/mo</span>
+          </header>
+          <p>Cozy detached studio with shared backyard and outdoor kitchen.</p>
+          <div class="meta">
+            <span>🌞 South facing</span>
+            <span>🚲 Bike storage</span>
+          </div>
         </article>
       </div>
+    </section>
+
+    <section class="card">
+      <h2>How the match flow works</h2>
+      <div class="steps">
+        <div class="step">
+          <strong>1. Personalise your profile</strong>
+          <p>Tell us your budget, schedule, habits, and must-haves so we can calculate compatibility.</p>
+        </div>
+        <div class="step">
+          <strong>2. Browse curated rooms</strong>
+          <p>Room cards highlight the best fit score, verified amenities, and real-time availability.</p>
+        </div>
+        <div class="step">
+          <strong>3. Request & chat instantly</strong>
+          <p>Send a booking request, message the owner, and coordinate visits without leaving RoomieMatch.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <h2>Latest requests</h2>
+        <div class="timeline">
+          <div class="timeline-entry">
+            <strong>Alex confirmed a tour for the Creative Loft</strong>
+            <span>2 hours ago &middot; Compatibility 92%</span>
+            <p>Owner will provide remote video walk-through before the in-person visit.</p>
+          </div>
+          <div class="timeline-entry">
+            <strong>Priya submitted a request for the Garden Cottage</strong>
+            <span>5 hours ago &middot; Compatibility 88%</span>
+            <p>Background check auto-approved. Owner reviewing preferences.</p>
+          </div>
+          <div class="timeline-entry">
+            <strong>Ruben and Casey matched for the City View Suite</strong>
+            <span>Yesterday &middot; Compatibility 95%</span>
+            <p>Lease drafted and awaiting digital signatures.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="card side-card">
+        <h2>Match insights</h2>
+        <div class="match-score">
+          <div>
+            <strong>Room vibe</strong>
+            <p style="margin: 0; color: #475467;">Creative Loft</p>
+          </div>
+          <span>92%</span>
+        </div>
+        <p style="color: #475467;">Remote work schedule, quiet hours, and shared interests in design make this an excellent fit.</p>
+        <div class="steps">
+          <div class="step">
+            <strong>Shared interests</strong>
+            <p>Design, coffee brewing, hiking</p>
+          </div>
+          <div class="step">
+            <strong>House rules</strong>
+            <p>No smoking, guests on weekends, monthly cleaning rotation</p>
+          </div>
+        </div>
+        <a class="button" style="justify-self: start;">Open dashboard</a>
+      </aside>
     </section>
   </main>
   <footer>
