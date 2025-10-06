@@ -7,7 +7,7 @@
         Explore available rooms or create an account to manage your listings.
       </p>
       <div class="hero__actions">
-        <a routerLink="/rooms" class="button">Start swiping</a>
+        <a routerLink="/rooms" class="button">Browse rooms</a>
         <a routerLink="/dashboard" class="button button--ghost" *ngIf="isAuthenticated$ | async">Go to dashboard</a>
         <a routerLink="/register" class="button button--ghost" *ngIf="!(isAuthenticated$ | async)">Create free account</a>
       </div>
@@ -18,8 +18,8 @@
 <section class="featured">
   <div class="container">
     <header>
-      <h2>Featured matches</h2>
-      <a routerLink="/rooms">Open swipe view →</a>
+      <h2>Featured rooms</h2>
+      <a routerLink="/rooms">View all rooms →</a>
     </header>
     <div class="featured__grid" *ngIf="featuredRooms.length; else loading">
       <article class="room" *ngFor="let room of featuredRooms">

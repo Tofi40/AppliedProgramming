@@ -4,7 +4,7 @@
     <span>RoomieMatch</span>
   </a>
   <nav class="topbar__nav">
-    <a routerLink="/rooms" routerLinkActive="active">Discover</a>
+    <a routerLink="/rooms" routerLinkActive="active">Rooms</a>
     <a routerLink="/dashboard" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Dashboard</a>
     <a routerLink="/requests" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Requests</a>
     <a routerLink="/profile" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Profile</a>

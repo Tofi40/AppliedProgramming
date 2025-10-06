@@ -8,7 +8,6 @@ export const appRoutes: Routes = [
   },
   {
     path: 'rooms',
-    canActivate: [authGuard],
     loadComponent: () => import('./features/rooms/rooms-list.component').then((m) => m.RoomsListComponent)
   },
   {
