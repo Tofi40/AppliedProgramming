@@ -1,0 +1,31 @@
+<header class="topbar">
+  <a class="topbar__brand" routerLink="/">
+    <span class="logo">🏠</span>
+    <span>RoomieMatch</span>
+  </a>
+  <nav class="topbar__nav">
+    <a routerLink="/rooms" routerLinkActive="active">Rooms</a>
+    <a routerLink="/dashboard" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Dashboard</a>
+    <a routerLink="/requests" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Requests</a>
+    <a routerLink="/profile" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Profile</a>
+  </nav>
+  <div class="topbar__actions">
+    <ng-container *ngIf="(isAuthenticated$ | async); else guestLinks">
+      <span class="user-pill">
+        <strong>{{ (user$ | async)?.displayName }}</strong>
+        <small *ngIf="role()">{{ role() }}</small>
+      </span>
+      <button type="button" class="button button--ghost" (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a routerLink="/login" class="button button--ghost">Login</a>
+      <a routerLink="/register" class="button">Join now</a>
+    </ng-template>
+  </div>
+</header>
+<main class="page">
+  <router-outlet></router-outlet>
+</main>
+<footer class="footer">
+  <p>RoomieMatch demo frontend. Built to interact with the ASP.NET backend.</p>
+</footer>

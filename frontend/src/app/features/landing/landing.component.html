@@ -1,0 +1,52 @@
+<section class="hero">
+  <div class="container">
+    <div class="hero__content card">
+      <h1>Find the right roomie faster</h1>
+      <p>
+        RoomieMatch pairs seekers and owners through compatibility scoring, verified requests, and live messaging.
+        Explore available rooms or create an account to manage your listings.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/rooms" class="button">Browse rooms</a>
+        <a routerLink="/dashboard" class="button button--ghost" *ngIf="isAuthenticated$ | async">Go to dashboard</a>
+        <a routerLink="/register" class="button button--ghost" *ngIf="!(isAuthenticated$ | async)">Create free account</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured">
+  <div class="container">
+    <header>
+      <h2>Featured rooms</h2>
+      <a routerLink="/rooms">View all rooms →</a>
+    </header>
+    <div class="featured__grid" *ngIf="featuredRooms.length; else loading">
+      <article class="room" *ngFor="let room of featuredRooms">
+        <header>
+          <h3>{{ room.title }}</h3>
+          <span class="price">{{ room.pricePerMonthCents / 100 | currency:'USD' }}/mo</span>
+        </header>
+        <p>{{ room.description }}</p>
+        <dl>
+          <div>
+            <dt>Location</dt>
+            <dd>{{ room.city }}, {{ room.country }}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{{ room.isPublished ? 'Published' : 'Draft' }}</dd>
+          </div>
+          <div *ngIf="room.compatibilityScore as score">
+            <dt>Match</dt>
+            <dd>{{ score | number:'1.0-0' }}% match</dd>
+          </div>
+        </dl>
+        <a class="room__link" [routerLink]="['/rooms', room.id]">Open details</a>
+      </article>
+    </div>
+    <ng-template #loading>
+      <p class="loading">Loading rooms…</p>
+    </ng-template>
+  </div>
+</section>

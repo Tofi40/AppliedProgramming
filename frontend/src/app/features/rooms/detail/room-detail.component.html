@@ -1,0 +1,51 @@
+<section class="container" *ngIf="!loading(); else loadingState">
+  <a routerLink="/rooms" class="back">← Back to list</a>
+  <article class="card room" *ngIf="room() as current">
+    <header>
+      <div>
+        <h1>{{ current.title }}</h1>
+        <p class="location">{{ current.city }}, {{ current.country }}</p>
+      </div>
+      <div class="pricing">
+        <span class="price">{{ current.pricePerMonthCents / 100 | currency:'USD' }}/month</span>
+        <span class="badge" [class.badge--green]="current.isPublished">
+          {{ current.isPublished ? 'Published' : 'Draft' }}
+        </span>
+      </div>
+    </header>
+
+    <p class="description">{{ current.description }}</p>
+
+    <section class="compatibility" *ngIf="current.compatibilityScore as score">
+      <h2>Compatibility</h2>
+      <div class="score">{{ score | number:'1.0-0' }}% match</div>
+      <ul>
+        <li *ngFor="let reason of current.rationale || []">{{ reason }}</li>
+      </ul>
+    </section>
+
+    <section class="actions" *ngIf="canRequest(); else requestCta">
+      <h2>Request a viewing</h2>
+      <textarea
+        rows="3"
+        placeholder="Share a bit about yourself"
+        [value]="requestNote()"
+        (input)="requestNote.set($any($event.target).value)">
+      </textarea>
+      <button class="button" (click)="submitRequest()" [disabled]="requestStatus() === 'submitting'">
+        {{ requestStatus() === 'submitting' ? 'Sending…' : 'Send request' }}
+      </button>
+      <p class="success" *ngIf="requestStatus() === 'success'">Request sent! The owner will reach out soon.</p>
+      <p class="error" *ngIf="requestStatus() === 'error'">Failed to send the request. Try again later.</p>
+    </section>
+    <ng-template #requestCta>
+      <p class="login-hint">
+        Sign in as a seeker to request this room.
+        <a routerLink="/login">Login</a>
+      </p>
+    </ng-template>
+  </article>
+</section>
+<ng-template #loadingState>
+  <p class="loading">Loading room…</p>
+</ng-template>

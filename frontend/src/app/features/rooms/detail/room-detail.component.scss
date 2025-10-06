@@ -1,0 +1,114 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: #1d4ed8;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.room {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .location {
+    color: #667085;
+  }
+
+  .pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+
+    .price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1d4ed8;
+    }
+  }
+
+  .badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.08);
+    font-weight: 600;
+
+    &--green {
+      background: rgba(34, 197, 94, 0.18);
+      color: #15803d;
+    }
+  }
+
+  .compatibility {
+    background: rgba(29, 78, 216, 0.06);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(29, 78, 216, 0.1);
+
+    .score {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1d4ed8;
+      margin-bottom: 0.75rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: #344054;
+      display: grid;
+      gap: 0.4rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    textarea {
+      border-radius: 0.75rem;
+      border: 1px solid #d0d5dd;
+      padding: 0.75rem;
+      font: inherit;
+      resize: vertical;
+    }
+
+    .success {
+      color: #15803d;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #dc2626;
+      font-weight: 600;
+    }
+  }
+
+  .login-hint {
+    background: rgba(15, 23, 42, 0.05);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    color: #475467;
+
+    a {
+      font-weight: 600;
+      color: #1d4ed8;
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem 0;
+}

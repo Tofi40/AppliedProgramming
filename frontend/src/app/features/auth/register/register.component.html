@@ -1,0 +1,33 @@
+<section class="auth">
+  <div class="card auth__card">
+    <h1>Create your account</h1>
+    <p>Sign up as an owner or seeker to access tailored tools.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <div class="form-field">
+        <label for="displayName">Display name</label>
+        <input id="displayName" type="text" formControlName="displayName" placeholder="Alex Morgan" />
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••" />
+      </div>
+      <div class="form-field">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role">
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+      <button class="button" type="submit" [disabled]="loading()">{{ loading() ? 'Creating…' : 'Create account' }}</button>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+    </form>
+
+    <p class="switch">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</section>

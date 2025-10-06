@@ -1,0 +1,49 @@
+<section class="container requests">
+  <header class="card header">
+    <div>
+      <h1>Booking requests</h1>
+      <p>Review and track seeker interest in your rooms.</p>
+    </div>
+    <button class="button button--ghost" type="button" (click)="refresh()">Refresh</button>
+  </header>
+
+  <ng-container *ngIf="!loading(); else loadingState">
+    <article class="card request" *ngFor="let request of requests()">
+      <div class="request__meta">
+        <div>
+          <span class="label">Request ID</span>
+          <strong>{{ request.id }}</strong>
+        </div>
+        <div>
+          <span class="label">Submitted</span>
+          <time>{{ request.createdAt | date:'medium' }}</time>
+        </div>
+        <div>
+          <span class="label">Last updated</span>
+          <time>{{ request.updatedAt | date:'medium' }}</time>
+        </div>
+      </div>
+
+      <div class="request__status">
+        <label>Status</label>
+        <ng-container *ngIf="isOwner(); else statusView">
+          <select [value]="request.status" (change)="updateStatus(request, $any($event.target).value)">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </ng-container>
+        <ng-template #statusView>
+          <p class="badge">{{ request.status }}</p>
+        </ng-template>
+      </div>
+
+      <div class="request__note" *ngIf="request.note">
+        <span class="label">Note from seeker</span>
+        <p>{{ request.note }}</p>
+      </div>
+    </article>
+    <p class="empty" *ngIf="!requests().length">No booking requests yet.</p>
+  </ng-container>
+</section>
+<ng-template #loadingState>
+  <p class="loading">Loading requests…</p>
+</ng-template>
